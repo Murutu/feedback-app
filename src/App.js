@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+/* 
+Component Level State => data that is associated with that 1 level component
+Global/App Level State => will need this data to share it in multiple components
+*/
+
+import { useState } from "react";
+import Header from "./components/Header";
+import FeedbackList from "./components/FeedbackList";
+import FeedbackData from "./data/FeedbackData";
 
 function App() {
+  const [feedback, setFeedback] = useState(FeedbackData);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <FeedbackList feedback={feedback} />
+      </div>
+    </>
   );
 }
 
