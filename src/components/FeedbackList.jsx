@@ -13,4 +13,15 @@ function FeedbackList({ feedback }) {
   );
 }
 
+// example (not a must )
+// FeedbackList.propTypes = {
+//   feedback: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       text: PropTypes.string.isRequired,
+//       rating: PropTypes.number.isRequired,
+//     })
+//   ),
+// };
+
 export default FeedbackList;
