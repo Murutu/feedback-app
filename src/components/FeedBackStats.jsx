@@ -1,8 +1,13 @@
-import PropTypes from "prop-types";
-function FeedBackStats({ feedback }) {
+import { useContext } from "react";
+import FeedBackContext from "../context/FeedBackContext";
+
+function FeedBackStats() {
+  const { feedback } = useContext(FeedBackContext);
+
   // calculate ratings average
   // ,0 is a 2nd argument with a default of 0
   // remove any 0s with this regular expression (/[.,]0$/, '')
+
   let average =
     feedback.reduce((acc, cur) => {
       return acc + cur.rating;
@@ -16,10 +21,6 @@ function FeedBackStats({ feedback }) {
       <h4>Average Rating: {isNaN(average) ? 0 : average}</h4>
     </div>
   );
-
-  FeedBackStats.propTypes = {
-    feedback: PropTypes.array.isRequired,
-  };
 }
 
 export default FeedBackStats;

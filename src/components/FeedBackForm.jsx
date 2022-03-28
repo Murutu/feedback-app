@@ -1,15 +1,28 @@
 // e.preventDefault() since it's a form submit
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import RatingSelect from "./RatingSelect";
 
 import Card from "./shared/Card";
 import Button from "./shared/Button";
 
-function FeedBackForm({ handleAdd }) {
+import FeedBackContext from "../context/FeedBackContext";
+
+function FeedBackForm() {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(10);
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState("");
+
+  const { addFeedback, feedBackEdit, updateFeedBack } =
+    useContext(FeedBackContext);
+
+  useEffect(() => {
+    if (feedBackEdit.edit === true) {
+      setBtnDisabled(false);
+      setText(feedBackEdit.item.text);
+      setRating(feedBackEdit.item.rating);
+    }
+  }, [feedBackEdit]);
 
   const handleTextChange = (e) => {
     if (text === "") {
@@ -34,7 +47,11 @@ function FeedBackForm({ handleAdd }) {
         rating,
       };
 
-      handleAdd(newFeedback);
+      if (feedBackEdit.edit === true) {
+        updateFeedBack(feedBackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
 
       setText("");
     }
